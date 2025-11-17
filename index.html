@@ -1252,39 +1252,6 @@
             font-size: 0.95rem;
         }
 
-        /* Widget de Água */
-        .water-widget {
-            background: linear-gradient(135deg, #00d4ff, #0099cc);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            color: white;
-        }
-
-        .water-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .water-icon {
-            font-size: 1.8rem;
-        }
-
-        .water-title {
-            flex: 1;
-        }
-
-        .water-goal {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 700;
-        }
-
         /* Theme Toggle */
         .theme-toggle {
             background: var(--bg-secondary);
@@ -2558,21 +2525,21 @@
                             <span class="weight-icon">⚖️</span>
                             <span class="weight-label">Peso de hoje (kg)</span>
                         </label>
-                        <input type="number" id="dailyWeight" step="0.1" min="0" max="200" placeholder="81.7" onchange="saveCurrentChecklist()">
+                        <input type="number" id="dailyWeight" step="0.1" min="0" max="200" placeholder="81.7">
                     </div>
 
                     <label class="checklist-item">
-                        <input type="checkbox" id="check-dieta" onchange="saveCurrentChecklist()">
+                        <input type="checkbox" id="check-dieta">
                         <span class="checklist-label">🍽️ Dieta + Suplementos concluídos</span>
                     </label>
                     
                     <label class="checklist-item">
-                        <input type="checkbox" id="check-treino" onchange="saveCurrentChecklist()">
+                        <input type="checkbox" id="check-treino">
                         <span class="checklist-label">💪 Treino de musculação concluído</span>
                     </label>
                     
                     <label class="checklist-item">
-                        <input type="checkbox" id="check-cardio" onchange="saveCurrentChecklist()">
+                        <input type="checkbox" id="check-cardio">
                         <span class="checklist-label">🏃 Cardio concluído</span>
                     </label>
                 </div>
@@ -2582,7 +2549,6 @@
                     <!-- Preenchido automaticamente pelo Apple Health -->
                 </div>
 
-                <!-- Widget de Água -->
                 <!-- Lembrete de Medidas Semanais -->
                 <div id="weeklyMeasureReminder" class="weekly-reminder" style="display: none;">
                     <div class="reminder-icon">📏</div>
@@ -2595,8 +2561,13 @@
 
                 <div class="checklist-notes">
                     <label for="checklistNotes">💭 Notas do dia (opcional)</label>
-                    <textarea id="checklistNotes" placeholder="Como foi seu dia? Alguma observação?" onchange="saveCurrentChecklist()"></textarea>
+                    <textarea id="checklistNotes" placeholder="Como foi seu dia? Alguma observação?"></textarea>
                 </div>
+
+                <!-- Botão Salvar Check-in -->
+                <button class="primary-btn" onclick="saveCurrentChecklistWithConfirmation()" style="width: 100%; margin-top: 1.5rem;">
+                    ✅ Salvar Check-in
+                </button>
             </div>
 
             <!-- Resumo Semanal -->
@@ -2794,11 +2765,6 @@
                         <div class="form-group">
                             <label for="data">📅 Data do Registro</label>
                             <input type="date" id="data" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hidratacao">💧 Hidratação Corporal (%)</label>
-                            <input type="number" id="hidratacao" step="0.1" placeholder="Ex: 60.5" required>
                         </div>
 
                         <div class="form-group">
@@ -3051,10 +3017,6 @@
                     <div class="form-group">
                         <label for="editPeso">⚖️ Peso (kg)</label>
                         <input type="number" id="editPeso" step="0.1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editHidratacao">💧 Hidratação Corporal (%)</label>
-                        <input type="number" id="editHidratacao" step="0.1" required>
                     </div>
                     <div class="form-group">
                         <label for="editGordura">🧍‍♂️ Percentual de Gordura (%)</label>
@@ -3432,7 +3394,6 @@
             document.getElementById('editIndex').value = index;
             document.getElementById('editData').value = record.data;
             document.getElementById('editPeso').value = record.peso;
-            document.getElementById('editHidratacao').value = record.hidratacao;
             document.getElementById('editGordura').value = record.gordura;
             document.getElementById('editCintura').value = record.cintura;
             document.getElementById('editBracoDireito').value = record.bracoDireito;
@@ -3901,7 +3862,6 @@
                 const record = {
                     data: dateKey,
                     peso: pesoValue, // Usa o peso do checklist diário
-                    hidratacao: parseFloat(document.getElementById('hidratacao').value),
                     gordura: parseFloat(document.getElementById('gordura').value),
                     cintura: parseFloat(document.getElementById('cintura').value),
                     bracoDireito: parseFloat(document.getElementById('bracoDireito').value),
@@ -3926,7 +3886,8 @@
                 generateInsights();
 
                 // Show success message
-                alert('✅ Registro salvo com sucesso!');
+                showSaveConfirmation('✅ Registro semanal salvo com sucesso!');
+                playSound('complete');
                 
                 // Scroll to charts
                 scrollToSection('graficos');
@@ -3942,7 +3903,6 @@
                 records[index] = {
                     data: document.getElementById('editData').value,
                     peso: parseFloat(document.getElementById('editPeso').value),
-                    hidratacao: parseFloat(document.getElementById('editHidratacao').value),
                     gordura: parseFloat(document.getElementById('editGordura').value),
                     cintura: parseFloat(document.getElementById('editCintura').value),
                     bracoDireito: parseFloat(document.getElementById('editBracoDireito').value),
@@ -3962,7 +3922,8 @@
                 generateInsights();
                 updateJourneyDisplay(); // Atualiza barras de progresso
                 
-                alert('✅ Registro atualizado com sucesso!');
+                showSaveConfirmation('✅ Registro atualizado com sucesso!');
+                playSound('complete');
             });
 
             // Initial load
@@ -4822,7 +4783,7 @@
             }
         }
 
-        // Salva o checklist atual
+        // Salva o checklist atual (chamado internamente)
         function saveCurrentChecklist() {
             if (!currentChecklistDate) return;
             
@@ -4835,15 +4796,48 @@
             };
             
             saveChecklist(currentChecklistDate, data);
+        }
+
+        // Salva o checklist com confirmação visual (chamado pelo botão)
+        function saveCurrentChecklistWithConfirmation() {
+            saveCurrentChecklist();
             
-            // Toca som de feedback
-            playSound('check');
+            // Toca som de sucesso
+            playSound('complete');
+            
+            // Mostra confirmação visual
+            showSaveConfirmation('✅ Check-in salvo com sucesso!');
+            
+            // Atualiza todos os displays
+            updateStreakDisplay();
+            updateWeeklySummary();
+            renderDailyWeightChart();
+            refreshDashboardAndHeatmap();
             
             // Atualiza resumo semanal se estiver aberto
             const summaryContent = document.getElementById('weeklySummaryContent');
             if (summaryContent && summaryContent.style.display !== 'none') {
                 renderWeeklySummary();
             }
+        }
+
+        // Mostra confirmação de salvamento
+        function showSaveConfirmation(message) {
+            const notification = document.createElement('div');
+            notification.className = 'sync-notification';
+            notification.innerHTML = `
+                <div class="sync-icon">✅</div>
+                <div class="sync-text">
+                    <strong>${message}</strong>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            // Remove após 3 segundos
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
 
         // Navega para um dia relativo (delta: -1 para anterior, +1 para próximo)
