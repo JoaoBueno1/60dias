@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Precisamos acessar seus dados do Apple Health para sincronizar peso, passos, calorias, exercicio, sono, distancia e frequencia cardiaca.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>O app 60 Dias precisa atualizar seus dados de saude.</string>
+</dict>
+</plist>

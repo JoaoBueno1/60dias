@@ -1618,6 +1618,159 @@
             margin-top: 2px;
         }
 
+        /* Streak Counter */
+        .streak-card {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+        }
+
+        .streak-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: flame 1.5s ease-in-out infinite;
+        }
+
+        @keyframes flame {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .streak-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .streak-label {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 0.5rem;
+        }
+
+        .streak-record {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        /* Daily Weight Chart */
+        .weight-chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1.5rem 0;
+        }
+
+        .weight-chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .weight-chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        /* Weekly Summary */
+        .weekly-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .summary-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+
+        .summary-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .summary-progress {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Notification Toast */
+        .sync-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #00D68F 0%, #00E0A4 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 214, 143, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10000;
+            animation: slideInUp 0.3s ease;
+            max-width: 350px;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .sync-icon {
+            font-size: 2rem;
+        }
+
+        .sync-text {
+            flex: 1;
+        }
+
         #checklistNotes {
             width: 100%;
             min-height: 80px;
@@ -2194,129 +2347,44 @@
             </p>
         </section>
 
-        <!-- Starting Point → Goal Section -->
-        <section id="journey">
-            <h2>� Ponto de Partida → Meta Final</h2>
-            
-            <div class="journey-container">
-                <!-- Starting Point -->
-                <div class="journey-card starting">
-                    <div class="journey-header">
-                        <span class="journey-icon">📍</span>
-                        <h3>PONTO DE PARTIDA</h3>
-                        <span class="journey-date" id="startDate">Início</span>
-                    </div>
-                    
-                    <div class="journey-stats">
-                        <div class="journey-stat">
-                            <div class="stat-label">⚖️ Peso</div>
-                            <div class="stat-value">81.7 kg</div>
-                        </div>
-                        <div class="journey-stat">
-                            <div class="stat-label">🔥 Gordura</div>
-                            <div class="stat-value">21%</div>
-                        </div>
-                        <div class="journey-stat">
-                            <div class="stat-label">💧 Hidratação</div>
-                            <div class="stat-value">55%</div>
-                        </div>
-                        <div class="journey-stat">
-                            <div class="stat-label">💪 Músculo</div>
-                            <div class="stat-value">40%</div>
-                        </div>
-                    </div>
+        <!-- Streak Counter -->
+        <div class="streak-card">
+            <div class="streak-icon">🔥</div>
+            <div class="streak-number" id="streakDays">0</div>
+            <div class="streak-label">dias consecutivos</div>
+            <div class="streak-record" id="streakRecord">Recorde: 0 dias</div>
+        </div>
 
-                    <div class="journey-measures">
-                        <h4>📏 Medidas</h4>
-                        <div class="measure-grid">
-                            <div class="measure-item">
-                                <span>Braços</span>
-                                <strong>32 cm</strong>
-                            </div>
-                            <div class="measure-item">
-                                <span>Cintura</span>
-                                <strong>95 cm</strong>
-                            </div>
-                            <div class="measure-item">
-                                <span>Peito</span>
-                                <strong>98 cm</strong>
-                            </div>
-                            <div class="measure-item">
-                                <span>Coxa</span>
-                                <strong>91 cm</strong>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Weekly Summary -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.5rem;">📊 Resumo da Semana</h3>
+            <div class="weekly-summary" id="weeklySummary">
+                <div class="summary-card">
+                    <div class="summary-icon">⚖️</div>
+                    <div class="summary-value" id="weekWeightChange">-</div>
+                    <div class="summary-label">Variação de Peso</div>
+                    <div class="summary-progress" id="weekWeightProgress"></div>
                 </div>
-
-                <!-- Progress Arrow -->
-                <div class="journey-arrow">
-                    <div class="arrow-content">
-                        <span style="font-size: 3rem;">→</span>
-                        <div style="margin-top: 1rem;" id="daysElapsed">
-                            <strong style="font-size: 2rem; color: var(--accent);">0</strong>
-                            <div style="font-size: 0.9rem; color: var(--text-secondary);">dias decorridos</div>
-                        </div>
-                    </div>
+                <div class="summary-card">
+                    <div class="summary-icon">🍽️</div>
+                    <div class="summary-value" id="weekDietDays">0/7</div>
+                    <div class="summary-label">Dieta Completa</div>
+                    <div class="summary-progress" id="weekDietProgress"></div>
                 </div>
-
-                <!-- Goal -->
-                <div class="journey-card goal">
-                    <div class="journey-header">
-                        <span class="journey-icon">🏆</span>
-                        <h3>META FINAL</h3>
-                        <span class="journey-date">60 dias</span>
-                    </div>
-                    
-                    <div class="journey-stats">
-                        <div class="journey-stat">
-                            <div class="stat-label">⚖️ Peso</div>
-                            <div class="stat-value">77 kg</div>
-                        </div>
-                        <div class="journey-stat">
-                            <div class="stat-label">🔥 Gordura</div>
-                            <div class="stat-value">12-13%</div>
-                        </div>
-                        <div class="journey-stat">
-                            <div class="stat-label">💧 Hidratação</div>
-                            <div class="stat-value">60%</div>
-                        </div>
-                        <div class="journey-stat">
-                            <div class="stat-label">💪 Músculo</div>
-                            <div class="stat-value">42-44%</div>
-                        </div>
-                    </div>
-
-                    <div class="journey-measures">
-                        <h4>📏 Medidas</h4>
-                        <div class="measure-grid">
-                            <div class="measure-item">
-                                <span>Braços</span>
-                                <strong>35-36 cm</strong>
-                            </div>
-                            <div class="measure-item">
-                                <span>Cintura</span>
-                                <strong>82-84 cm</strong>
-                            </div>
-                            <div class="measure-item">
-                                <span>Peito</span>
-                                <strong>108+ cm</strong>
-                            </div>
-                            <div class="measure-item">
-                                <span>Coxa</span>
-                                <strong>93-95 cm</strong>
-                            </div>
-                        </div>
-                    </div>
+                <div class="summary-card">
+                    <div class="summary-icon">💪</div>
+                    <div class="summary-value" id="weekWorkoutDays">0/7</div>
+                    <div class="summary-label">Treinos Realizados</div>
+                    <div class="summary-progress" id="weekWorkoutProgress"></div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">🏃</div>
+                    <div class="summary-value" id="weekCardioDays">0/7</div>
+                    <div class="summary-label">Cardio Realizado</div>
+                    <div class="summary-progress" id="weekCardioProgress"></div>
                 </div>
             </div>
-
-            <!-- Current Progress Bars -->
-            <div id="currentProgressBars" style="margin-top: 3rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">📊 Progresso Atual</h3>
-                <div class="progress-bars-grid"></div>
-            </div>
-        </section>
+        </div>
 
         <!-- Dashboard de Tendências -->
         <section id="dashboard" style="margin-top: 2rem;">
@@ -2581,46 +2649,6 @@
                 </div>
 
                 <!-- Widget de Água -->
-                <div class="water-widget">
-                    <div class="water-header">
-                        <span class="water-icon">💧</span>
-                        <span class="water-title">Hidratação Diária</span>
-                        <span class="water-goal" id="waterGoal">0/8 copos</span>
-                    </div>
-                    <div class="water-glasses">
-                        <button class="water-glass" onclick="toggleWaterGlass(0)">
-                            <span class="glass-icon" id="glass-0">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(1)">
-                            <span class="glass-icon" id="glass-1">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(2)">
-                            <span class="glass-icon" id="glass-2">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(3)">
-                            <span class="glass-icon" id="glass-3">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(4)">
-                            <span class="glass-icon" id="glass-4">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(5)">
-                            <span class="glass-icon" id="glass-5">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(6)">
-                            <span class="glass-icon" id="glass-6">🥤</span>
-                        </button>
-                        <button class="water-glass" onclick="toggleWaterGlass(7)">
-                            <span class="glass-icon" id="glass-7">🥤</span>
-                        </button>
-                    </div>
-                    <div class="water-progress">
-                        <div class="water-progress-bar">
-                            <div class="water-progress-fill" id="waterProgressFill" style="width: 0%"></div>
-                        </div>
-                        <div class="water-message" id="waterMessage">💪 Meta: 2 litros (8 copos de 250ml)</div>
-                    </div>
-                </div>
-
                 <!-- Lembrete de Medidas Semanais -->
                 <div id="weeklyMeasureReminder" class="weekly-reminder" style="display: none;">
                     <div class="reminder-icon">📏</div>
@@ -2902,15 +2930,141 @@
                 </div>
             </div>
         </section>
+        <!-- Starting Point → Goal Section -->
+        <section id="journey">
+            <h2>� Ponto de Partida → Meta Final</h2>
+            
+            <div class="journey-container">
+                <!-- Starting Point -->
+                <div class="journey-card starting">
+                    <div class="journey-header">
+                        <span class="journey-icon">📍</span>
+                        <h3>PONTO DE PARTIDA</h3>
+                        <span class="journey-date" id="startDate">Início</span>
+                    </div>
+                    
+                    <div class="journey-stats">
+                        <div class="journey-stat">
+                            <div class="stat-label">⚖️ Peso</div>
+                            <div class="stat-value">81.7 kg</div>
+                        </div>
+                        <div class="journey-stat">
+                            <div class="stat-label">🔥 Gordura</div>
+                            <div class="stat-value">21%</div>
+                        </div>
+                        <div class="journey-stat">
+                            <div class="stat-label"> Músculo</div>
+                            <div class="stat-value">40%</div>
+                        </div>
+                    </div>
+
+                    <div class="journey-measures">
+                        <h4>📏 Medidas</h4>
+                        <div class="measure-grid">
+                            <div class="measure-item">
+                                <span>Braços</span>
+                                <strong>32 cm</strong>
+                            </div>
+                            <div class="measure-item">
+                                <span>Cintura</span>
+                                <strong>95 cm</strong>
+                            </div>
+                            <div class="measure-item">
+                                <span>Peito</span>
+                                <strong>98 cm</strong>
+                            </div>
+                            <div class="measure-item">
+                                <span>Coxa</span>
+                                <strong>91 cm</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Arrow -->
+                <div class="journey-arrow">
+                    <div class="arrow-content">
+                        <span style="font-size: 3rem;">→</span>
+                        <div style="margin-top: 1rem;" id="daysElapsed">
+                            <strong style="font-size: 2rem; color: var(--accent);">0</strong>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">dias decorridos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goal -->
+                <div class="journey-card goal">
+                    <div class="journey-header">
+                        <span class="journey-icon">🏆</span>
+                        <h3>META FINAL</h3>
+                        <span class="journey-date">60 dias</span>
+                    </div>
+                    
+                    <div class="journey-stats">
+                        <div class="journey-stat">
+                            <div class="stat-label">⚖️ Peso</div>
+                            <div class="stat-value">77 kg</div>
+                        </div>
+                        <div class="journey-stat">
+                            <div class="stat-label">🔥 Gordura</div>
+                            <div class="stat-value">12-13%</div>
+                        </div>
+                        <div class="journey-stat">
+                            <div class="stat-label"> Músculo</div>
+                            <div class="stat-value">42-44%</div>
+                        </div>
+                    </div>
+
+                    <div class="journey-measures">
+                        <h4>📏 Medidas</h4>
+                        <div class="measure-grid">
+                            <div class="measure-item">
+                                <span>Braços</span>
+                                <strong>35-36 cm</strong>
+                            </div>
+                            <div class="measure-item">
+                                <span>Cintura</span>
+                                <strong>82-84 cm</strong>
+                            </div>
+                            <div class="measure-item">
+                                <span>Peito</span>
+                                <strong>108+ cm</strong>
+                            </div>
+                            <div class="measure-item">
+                                <span>Coxa</span>
+                                <strong>93-95 cm</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Progress Bars -->
+            <div id="currentProgressBars" style="margin-top: 3rem;">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">📊 Progresso Atual</h3>
+                <div class="progress-bars-grid"></div>
+            </div>
+        </section>
 
         <!-- Charts Section -->
         <section id="graficos">
             <h2>📈 Gráficos e Análise de Progresso</h2>
             
+            <!-- Gráfico de Peso Diário -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">⚖️ Evolução do Peso Diário</h3>
+                <div id="dailyWeightChart">
+                    <div class="no-data">
+                        <div class="no-data-icon">📊</div>
+                        <div>Registre seu peso diário no Check-in para visualizar a evolução.</div>
+                    </div>
+                </div>
+            </div>
+
             <div id="chartsContent">
                 <div class="no-data">
                     <div class="no-data-icon">📊</div>
-                    <div>Adicione pelo menos 2 registros para visualizar os gráficos.</div>
+                    <div>Adicione pelo menos 2 registros semanais para visualizar os gráficos.</div>
                 </div>
             </div>
 
@@ -2939,7 +3093,6 @@
             <button class="action-btn" onclick="exportData()">📥 Exportar Dados</button>
             <button class="action-btn secondary" onclick="importData()">📤 Importar Dados</button>
             <button class="action-btn secondary" onclick="openBackupModal()">💾 Backups</button>
-            <button class="reset-btn" onclick="resetAllData()">🗑️ Resetar Dados</button>
         </div>
         <div class="copyright">
             © 2025 Projeto 60 Dias | Feito com 💚 para sua transformação
@@ -3132,6 +3285,172 @@
             installButton.style.display = 'none';
             console.log('✅ App instalado com sucesso');
         });
+
+        // =======================
+        // NOTIFICATIONS SYSTEM
+        // =======================
+        async function requestNotificationPermission() {
+            if (!('Notification' in window)) {
+                console.log('❌ Este navegador não suporta notificações');
+                return false;
+            }
+
+            if (Notification.permission === 'granted') {
+                return true;
+            }
+
+            if (Notification.permission !== 'denied') {
+                const permission = await Notification.requestPermission();
+                return permission === 'granted';
+            }
+
+            return false;
+        }
+
+        function scheduleNotifications() {
+            // Pede permissão se ainda não tem
+            requestNotificationPermission().then(granted => {
+                if (!granted) return;
+
+                // Agenda checagem diária às 22h
+                scheduleDailyReminder();
+
+                // Agenda lembrete semanal (segunda-feira 8h)
+                scheduleWeeklyReminder();
+            });
+        }
+
+        function scheduleDailyReminder() {
+            const now = new Date();
+            const reminderTime = new Date();
+            reminderTime.setHours(22, 0, 0, 0); // 22:00
+
+            // Se já passou das 22h hoje, agenda para amanhã
+            if (now > reminderTime) {
+                reminderTime.setDate(reminderTime.getDate() + 1);
+            }
+
+            const timeUntilReminder = reminderTime - now;
+
+            setTimeout(() => {
+                checkAndSendDailyReminder();
+                // Reagenda para o próximo dia
+                setInterval(checkAndSendDailyReminder, 24 * 60 * 60 * 1000);
+            }, timeUntilReminder);
+        }
+
+        function checkAndSendDailyReminder() {
+            const today = formatDateKey(new Date());
+            const checklist = loadChecklist(today);
+
+            // Verifica se não completou o check-in
+            const checksCompleted = [checklist.dieta, checklist.treino, checklist.cardio].filter(Boolean).length;
+            
+            if (checksCompleted < 2) {
+                showNotification(
+                    '⏰ Hora do Check-in!',
+                    'Não esqueça de registrar seu progresso de hoje. Faltam poucos segundos!',
+                    'daily-reminder'
+                );
+            }
+        }
+
+        function scheduleWeeklyReminder() {
+            const now = new Date();
+            const nextMonday = new Date();
+            
+            // Calcula próxima segunda-feira às 8h
+            const daysUntilMonday = (8 - now.getDay()) % 7 || 7;
+            nextMonday.setDate(now.getDate() + daysUntilMonday);
+            nextMonday.setHours(8, 0, 0, 0);
+
+            const timeUntilReminder = nextMonday - now;
+
+            setTimeout(() => {
+                showNotification(
+                    '📊 Registro Semanal',
+                    'Hoje é dia de registrar suas medidas corporais! Pegue a fita métrica e a balança.',
+                    'weekly-reminder'
+                );
+                // Reagenda para próxima semana
+                setInterval(() => {
+                    showNotification(
+                        '📊 Registro Semanal',
+                        'Hoje é dia de registrar suas medidas corporais! Pegue a fita métrica e a balança.',
+                        'weekly-reminder'
+                    );
+                }, 7 * 24 * 60 * 60 * 1000);
+            }, timeUntilReminder);
+        }
+
+        function showNotification(title, body, tag) {
+            if (Notification.permission !== 'granted') return;
+
+            const options = {
+                body: body,
+                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">💪</text></svg>',
+                badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🔥</text></svg>',
+                vibrate: [200, 100, 200],
+                tag: tag,
+                requireInteraction: false,
+                actions: [
+                    { action: 'open', title: 'Abrir App' }
+                ]
+            };
+
+            // Tenta usar service worker se disponível
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.showNotification(title, options);
+                });
+            } else {
+                // Fallback para notificação simples
+                new Notification(title, options);
+            }
+
+            // Som de notificação
+            playSound('notify');
+        }
+
+        // Adiciona botão para ativar notificações no header
+        function addNotificationButton() {
+            if (!('Notification' in window)) return;
+
+            const nav = document.querySelector('.header-nav nav');
+            if (!nav) return;
+
+            const notifBtn = document.createElement('button');
+            notifBtn.className = 'nav-btn';
+            notifBtn.innerHTML = '🔔';
+            notifBtn.title = 'Ativar Lembretes';
+            notifBtn.style.fontSize = '1.2rem';
+
+            notifBtn.addEventListener('click', async () => {
+                const granted = await requestNotificationPermission();
+                if (granted) {
+                    scheduleNotifications();
+                    notifBtn.innerHTML = '✅';
+                    notifBtn.title = 'Lembretes Ativados';
+                    
+                    // Mostra notificação de teste
+                    showNotification(
+                        '🎉 Lembretes Ativados!',
+                        'Você receberá lembretes diários às 22h e semanais às segundas-feiras.',
+                        'activation'
+                    );
+                } else {
+                    alert('❌ Permissão negada. Ative nas configurações do navegador.');
+                }
+            });
+
+            // Adiciona status inicial
+            if (Notification.permission === 'granted') {
+                notifBtn.innerHTML = '✅';
+                notifBtn.title = 'Lembretes Ativados';
+            }
+
+            nav.insertBefore(notifBtn, nav.firstChild);
+        }
 
         // =======================
         // STORAGE MANAGEMENT
@@ -3621,6 +3940,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Set today's date as default
             document.getElementById('data').valueAsDate = new Date();
+
+            // Adiciona botão de notificações
+            addNotificationButton();
+
+            // Agenda notificações se já tem permissão
+            if (Notification.permission === 'granted') {
+                scheduleNotifications();
+            }
 
             // Star rating for main form
             setupStarRating('humor', 'humorValue');
@@ -4475,6 +4802,14 @@
                     osc.start(audioContext.currentTime + i * 0.1);
                     osc.stop(audioContext.currentTime + i * 0.1 + 0.2);
                 });
+            } else if (type === 'notify') {
+                // Som suave de notificação
+                oscillator.frequency.value = 600;
+                oscillator.type = 'sine';
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.4);
             }
         }
 
@@ -4975,6 +5310,14 @@
                     checklist.heartRate = urlParams.get('heartRate');
                 }
                 
+                if (urlParams.has('bodyFat')) {
+                    checklist.bodyFatPercentage = urlParams.get('bodyFat');
+                }
+                
+                if (urlParams.has('leanMass')) {
+                    checklist.leanBodyMass = urlParams.get('leanMass');
+                }
+                
                 // Salva
                 saveChecklist(today, checklist);
                 
@@ -5381,6 +5724,234 @@
         }
 
         // =======================
+        // STREAK COUNTER
+        // =======================
+        function calculateStreak() {
+            const today = new Date();
+            let streak = 0;
+            let currentDate = new Date(today);
+            let maxStreak = parseInt(localStorage.getItem('maxStreak') || '0');
+
+            // Conta dias consecutivos de trás pra frente
+            while (true) {
+                const dateKey = formatDateKey(currentDate);
+                const checklist = loadChecklist(dateKey);
+                
+                // Considera completo se tem pelo menos 2 dos 3 checks
+                const checksCompleted = [checklist.dieta, checklist.treino, checklist.cardio].filter(Boolean).length;
+                
+                if (checksCompleted >= 2) {
+                    streak++;
+                    currentDate.setDate(currentDate.getDate() - 1);
+                } else {
+                    break;
+                }
+
+                // Segurança: não vai além de 60 dias
+                if (streak > 60) break;
+            }
+
+            // Atualiza recorde
+            if (streak > maxStreak) {
+                maxStreak = streak;
+                localStorage.setItem('maxStreak', maxStreak.toString());
+            }
+
+            return { current: streak, record: maxStreak };
+        }
+
+        function updateStreakDisplay() {
+            const streak = calculateStreak();
+            document.getElementById('streakDays').textContent = streak.current;
+            document.getElementById('streakRecord').textContent = `Recorde: ${streak.record} dias`;
+        }
+
+        // =======================
+        // WEEKLY SUMMARY
+        // =======================
+        function updateWeeklySummary() {
+            const today = new Date();
+            const weekAgo = new Date(today);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+
+            let dietCount = 0;
+            let workoutCount = 0;
+            let cardioCount = 0;
+            let weights = [];
+
+            // Coleta dados dos últimos 7 dias
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateKey = formatDateKey(date);
+                const checklist = loadChecklist(dateKey);
+
+                if (checklist.dieta) dietCount++;
+                if (checklist.treino) workoutCount++;
+                if (checklist.cardio) cardioCount++;
+                if (checklist.weight && parseFloat(checklist.weight) > 0) {
+                    weights.push(parseFloat(checklist.weight));
+                }
+            }
+
+            // Atualiza displays
+            document.getElementById('weekDietDays').textContent = `${dietCount}/7`;
+            document.getElementById('weekWorkoutDays').textContent = `${workoutCount}/7`;
+            document.getElementById('weekCardioDays').textContent = `${cardioCount}/7`;
+
+            // Progresso em %
+            document.getElementById('weekDietProgress').textContent = `${Math.round(dietCount/7*100)}% concluído`;
+            document.getElementById('weekWorkoutProgress').textContent = `${Math.round(workoutCount/7*100)}% concluído`;
+            document.getElementById('weekCardioProgress').textContent = `${Math.round(cardioCount/7*100)}% concluído`;
+
+            // Variação de peso
+            if (weights.length >= 2) {
+                weights.sort((a, b) => a - b); // Ordena
+                const oldestWeight = weights[weights.length - 1];
+                const newestWeight = weights[0];
+                const change = newestWeight - oldestWeight;
+                const changeStr = change > 0 ? `+${change.toFixed(1)}kg` : `${change.toFixed(1)}kg`;
+                
+                document.getElementById('weekWeightChange').textContent = changeStr;
+                document.getElementById('weekWeightChange').style.color = change <= 0 ? 'var(--success)' : 'var(--warning)';
+                
+                if (change <= 0) {
+                    document.getElementById('weekWeightProgress').textContent = '✅ No caminho certo!';
+                } else {
+                    document.getElementById('weekWeightProgress').textContent = '⚠️ Peso aumentou';
+                }
+            } else {
+                document.getElementById('weekWeightChange').textContent = '-';
+                document.getElementById('weekWeightProgress').textContent = 'Registre peso diariamente';
+            }
+        }
+
+        // =======================
+        // DAILY WEIGHT CHART
+        // =======================
+        function renderDailyWeightChart() {
+            const container = document.getElementById('dailyWeightChart');
+            if (!container) return;
+
+            const allDates = getAllDatesInRange(PROJECT_START_DATE, PROJECT_END_DATE);
+            const weights = [];
+
+            // Coleta todos os pesos
+            allDates.forEach(date => {
+                const checklist = loadChecklist(date);
+                if (checklist.weight && parseFloat(checklist.weight) > 0) {
+                    weights.push({
+                        date: new Date(date),
+                        weight: parseFloat(checklist.weight)
+                    });
+                }
+            });
+
+            if (weights.length === 0) {
+                container.innerHTML = `
+                    <div class="no-data">
+                        <div class="no-data-icon">📊</div>
+                        <div>Registre seu peso diário no Check-in para visualizar a evolução.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Ordena por data
+            weights.sort((a, b) => a.date - b.date);
+
+            // Calcula média móvel 7 dias
+            const movingAvg = [];
+            for (let i = 0; i < weights.length; i++) {
+                const start = Math.max(0, i - 6);
+                const slice = weights.slice(start, i + 1);
+                const avg = slice.reduce((sum, w) => sum + w.weight, 0) / slice.length;
+                movingAvg.push(avg);
+            }
+
+            // Configurações do gráfico
+            const width = 800;
+            const height = 300;
+            const padding = { top: 20, right: 20, bottom: 40, left: 50 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            const minWeight = Math.min(...weights.map(w => w.weight), 77) - 1;
+            const maxWeight = Math.max(...weights.map(w => w.weight)) + 1;
+
+            // Escalas
+            const xScale = (i) => padding.left + (i / (weights.length - 1)) * chartWidth;
+            const yScale = (weight) => padding.top + chartHeight - ((weight - minWeight) / (maxWeight - minWeight)) * chartHeight;
+
+            // Gera SVG
+            let svg = `<svg class="weight-chart-svg" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
+
+            // Grid horizontal
+            for (let i = 0; i <= 5; i++) {
+                const y = padding.top + (chartHeight / 5) * i;
+                const weight = maxWeight - (maxWeight - minWeight) / 5 * i;
+                svg += `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="rgba(128,128,128,0.2)" stroke-width="1"/>`;
+                svg += `<text x="${padding.left - 10}" y="${y + 5}" text-anchor="end" fill="var(--text-secondary)" font-size="12">${weight.toFixed(1)}</text>`;
+            }
+
+            // Linha da meta (77kg)
+            const goalY = yScale(77);
+            svg += `<line x1="${padding.left}" y1="${goalY}" x2="${width - padding.right}" y2="${goalY}" stroke="#00D68F" stroke-width="2" stroke-dasharray="5,5"/>`;
+            svg += `<text x="${width - padding.right - 5}" y="${goalY - 5}" text-anchor="end" fill="#00D68F" font-size="12" font-weight="bold">Meta: 77kg</text>`;
+
+            // Linha de média móvel
+            if (movingAvg.length > 1) {
+                let pathAvg = `M ${xScale(0)} ${yScale(movingAvg[0])}`;
+                for (let i = 1; i < movingAvg.length; i++) {
+                    pathAvg += ` L ${xScale(i)} ${yScale(movingAvg[i])}`;
+                }
+                svg += `<path d="${pathAvg}" fill="none" stroke="#FFA500" stroke-width="2" opacity="0.6"/>`;
+            }
+
+            // Linha de peso real
+            let pathWeight = `M ${xScale(0)} ${yScale(weights[0].weight)}`;
+            for (let i = 1; i < weights.length; i++) {
+                pathWeight += ` L ${xScale(i)} ${yScale(weights[i].weight)}`;
+            }
+            svg += `<path d="${pathWeight}" fill="none" stroke="#0AA7FF" stroke-width="3"/>`;
+
+            // Pontos
+            weights.forEach((w, i) => {
+                svg += `<circle cx="${xScale(i)}" cy="${yScale(w.weight)}" r="4" fill="#0AA7FF" stroke="white" stroke-width="2"/>`;
+            });
+
+            svg += '</svg>';
+
+            // Legenda
+            const legend = `
+                <div class="weight-chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #0AA7FF;"></div>
+                        <span>Peso Real</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FFA500;"></div>
+                        <span>Média 7 dias</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #00D68F; opacity: 0.6;"></div>
+                        <span>Meta (77kg)</span>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = `
+                <div class="weight-chart-container">
+                    ${svg}
+                </div>
+                ${legend}
+                <div style="text-align: center; margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                    ${weights.length} pesagens registradas
+                </div>
+            `;
+        }
+
+        // =======================
         // DASHBOARD DE TENDÊNCIAS
         // =======================
         function updateDashboard() {
@@ -5565,12 +6136,18 @@
         // Chamar ao carregar a página
         document.addEventListener('DOMContentLoaded', function() {
             refreshDashboardAndHeatmap();
+            updateStreakDisplay();
+            updateWeeklySummary();
+            renderDailyWeightChart();
             
             // Atualizar quando o checklist mudar
             const originalSaveChecklist = window.saveChecklist;
             window.saveChecklist = function(date, data) {
                 originalSaveChecklist(date, data);
                 refreshDashboardAndHeatmap();
+                updateStreakDisplay();
+                updateWeeklySummary();
+                renderDailyWeightChart();
             };
         });
     </script>
