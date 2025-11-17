@@ -1,5 +1,5 @@
 // Service Worker - Projeto 60 Dias
-const CACHE_NAME = 'projeto-60-dias-v1';
+const CACHE_NAME = 'projeto-60-dias-v2';
 const urlsToCache = [
   './',
   './index.html',

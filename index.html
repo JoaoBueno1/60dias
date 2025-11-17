@@ -3132,11 +3132,29 @@
         let deferredPrompt;
         const installButton = document.getElementById('installButton');
 
-        // Register Service Worker
+        // Register Service Worker with auto-update
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('service-worker.js')
-                    .then(reg => console.log('✅ Service Worker registrado'))
+                    .then(reg => {
+                        console.log('✅ Service Worker registrado');
+                        
+                        // Check for updates every 30 seconds
+                        setInterval(() => {
+                            reg.update();
+                        }, 30000);
+                        
+                        // Auto-reload when new service worker is activated
+                        reg.addEventListener('updatefound', () => {
+                            const newWorker = reg.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+                                    console.log('🔄 Nova versão detectada! Recarregando...');
+                                    window.location.reload();
+                                }
+                            });
+                        });
+                    })
                     .catch(err => console.log('❌ Service Worker erro:', err));
             });
         }
