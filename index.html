@@ -3901,37 +3901,49 @@
             });
 
             // Edit form submission
-            document.getElementById('editForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const index = parseInt(document.getElementById('editIndex').value);
-                const records = getRecords();
-                
-                records[index] = {
-                    data: document.getElementById('editData').value,
-                    peso: parseFloat(document.getElementById('editPeso').value),
-                    gordura: parseFloat(document.getElementById('editGordura').value),
-                    cintura: parseFloat(document.getElementById('editCintura').value),
-                    bracoDireito: parseFloat(document.getElementById('editBracoDireito').value),
-                    bracoEsquerdo: parseFloat(document.getElementById('editBracoEsquerdo').value),
-                    coxa: parseFloat(document.getElementById('editCoxa').value),
-                    peito: parseFloat(document.getElementById('editPeito').value),
-                    humor: parseInt(document.getElementById('editHumorValue').value),
-                    observacoes: document.getElementById('editObservacoes').value
-                };
-                
-                records.sort((a, b) => new Date(a.data) - new Date(b.data));
-                saveRecords(records);
-                
-                closeEditModal();
-                loadRecords();
-                renderCharts();
-                generateInsights();
-                updateJourneyDisplay(); // Atualiza barras de progresso
-                
-                showSaveConfirmation('✅ Registro atualizado com sucesso!');
-                playSound('complete');
-            });
+            const editForm = document.getElementById('editForm');
+            if (editForm) {
+                editForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('Edit form submitted');
+                    
+                    const index = parseInt(document.getElementById('editIndex').value);
+                    const records = getRecords();
+                    
+                    if (!records[index]) {
+                        console.error('Registro não encontrado no índice:', index);
+                        alert('❌ Erro: Registro não encontrado');
+                        return;
+                    }
+                    
+                    records[index] = {
+                        data: document.getElementById('editData').value,
+                        peso: parseFloat(document.getElementById('editPeso').value),
+                        gordura: parseFloat(document.getElementById('editGordura').value),
+                        cintura: parseFloat(document.getElementById('editCintura').value),
+                        bracoDireito: parseFloat(document.getElementById('editBracoDireito').value),
+                        bracoEsquerdo: parseFloat(document.getElementById('editBracoEsquerdo').value),
+                        coxa: parseFloat(document.getElementById('editCoxa').value),
+                        peito: parseFloat(document.getElementById('editPeito').value),
+                        humor: parseInt(document.getElementById('editHumorValue').value),
+                        observacoes: document.getElementById('editObservacoes').value
+                    };
+                    
+                    records.sort((a, b) => new Date(a.data) - new Date(b.data));
+                    saveRecords(records);
+                    
+                    closeEditModal();
+                    loadRecords();
+                    renderCharts();
+                    generateInsights();
+                    updateJourneyDisplay(); // Atualiza barras de progresso
+                    
+                    showSaveConfirmation('✅ Registro atualizado com sucesso!');
+                    playSound('complete');
+                });
+            } else {
+                console.error('Formulário de edição não encontrado!');
+            }
 
             // Initial load
             loadTheme(); // Carrega tema salvo
