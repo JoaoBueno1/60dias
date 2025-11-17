@@ -3753,7 +3753,7 @@
                 weight: parseFloat(latestRecord.peso) || STARTING_VALUES.weight,
                 fat: parseFloat(latestRecord.gordura) || STARTING_VALUES.fat,
                 muscle: 40, // TODO: adicionar massa muscular nos registros
-                arms: parseFloat(latestRecord.braco) || STARTING_VALUES.arms,
+                arms: ((parseFloat(latestRecord.bracoDireito) || 0) + (parseFloat(latestRecord.bracoEsquerdo) || 0)) / 2 || STARTING_VALUES.arms,
                 waist: parseFloat(latestRecord.cintura) || STARTING_VALUES.waist,
                 chest: parseFloat(latestRecord.peito) || STARTING_VALUES.chest,
                 thigh: parseFloat(latestRecord.coxa) || STARTING_VALUES.thigh
