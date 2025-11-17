@@ -1285,72 +1285,6 @@
             font-weight: 700;
         }
 
-        .water-glasses {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .water-glass {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 8px;
-            padding: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 2rem;
-        }
-
-        .water-glass:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        .water-glass:active {
-            transform: scale(0.95);
-        }
-
-        .water-glass.filled {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: white;
-        }
-
-        .glass-icon {
-            display: block;
-            filter: grayscale(100%) opacity(0.5);
-            transition: filter 0.3s ease;
-        }
-
-        .water-glass.filled .glass-icon {
-            filter: grayscale(0%) opacity(1);
-        }
-
-        .water-progress {
-            margin-top: 1rem;
-        }
-
-        .water-progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-
-        .water-progress-fill {
-            height: 100%;
-            background: white;
-            transition: width 0.5s ease;
-            border-radius: 10px;
-        }
-
-        .water-message {
-            text-align: center;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
         /* Theme Toggle */
         .theme-toggle {
             background: var(--bg-secondary);
@@ -4828,7 +4762,6 @@
                 dieta: false,
                 treino: false,
                 cardio: false,
-                water: [false, false, false, false, false, false, false, false],
                 notes: ''
             };
         }
@@ -4856,9 +4789,6 @@
             document.getElementById('check-dieta').checked = checklist.dieta;
             document.getElementById('check-treino').checked = checklist.treino;
             document.getElementById('check-cardio').checked = checklist.cardio;
-            
-            // Atualiza widget de água
-            updateWaterWidget(checklist.water || [false, false, false, false, false, false, false, false]);
             
             // Atualiza notas
             document.getElementById('checklistNotes').value = checklist.notes || '';
@@ -4896,19 +4826,11 @@
         function saveCurrentChecklist() {
             if (!currentChecklistDate) return;
             
-            // Coleta estado da água
-            const waterState = [];
-            for (let i = 0; i < 8; i++) {
-                const glassBtn = document.querySelector(`.water-glass:nth-child(${i + 1})`);
-                waterState.push(glassBtn ? glassBtn.classList.contains('filled') : false);
-            }
-            
             const data = {
                 weight: document.getElementById('dailyWeight').value,
                 dieta: document.getElementById('check-dieta').checked,
                 treino: document.getElementById('check-treino').checked,
                 cardio: document.getElementById('check-cardio').checked,
-                water: waterState,
                 notes: document.getElementById('checklistNotes').value
             };
             
@@ -4921,79 +4843,6 @@
             const summaryContent = document.getElementById('weeklySummaryContent');
             if (summaryContent && summaryContent.style.display !== 'none') {
                 renderWeeklySummary();
-            }
-        }
-
-        // =======================
-        // WIDGET DE ÁGUA
-        // =======================
-        function toggleWaterGlass(index) {
-            const glassBtn = document.querySelector(`.water-glass:nth-child(${index + 1})`);
-            if (!glassBtn) return;
-            
-            glassBtn.classList.toggle('filled');
-            
-            // Conta quantos estão preenchidos
-            const filled = document.querySelectorAll('.water-glass.filled').length;
-            
-            // Atualiza contador
-            document.getElementById('waterGoal').textContent = `${filled}/8 copos`;
-            
-            // Atualiza barra de progresso
-            const percentage = (filled / 8) * 100;
-            document.getElementById('waterProgressFill').style.width = `${percentage}%`;
-            
-            // Atualiza mensagem
-            const messageEl = document.getElementById('waterMessage');
-            if (filled === 0) {
-                messageEl.textContent = '💪 Meta: 2 litros (8 copos de 250ml)';
-            } else if (filled < 4) {
-                messageEl.textContent = `💧 Bom começo! Já tomou ${filled * 250}ml`;
-            } else if (filled < 8) {
-                messageEl.textContent = `🔥 Ótimo! Faltam apenas ${(8 - filled) * 250}ml`;
-            } else {
-                messageEl.textContent = '🎉 META ATINGIDA! Parabéns pela hidratação!';
-                playSound('complete');
-            }
-            
-            // Toca som
-            if (glassBtn.classList.contains('filled')) {
-                playSound('check');
-            }
-            
-            // Salva automaticamente
-            saveCurrentChecklist();
-        }
-
-        function updateWaterWidget(waterState) {
-            let filled = 0;
-            waterState.forEach((isFilled, index) => {
-                const glassBtn = document.querySelector(`.water-glass:nth-child(${index + 1})`);
-                if (glassBtn) {
-                    if (isFilled) {
-                        glassBtn.classList.add('filled');
-                        filled++;
-                    } else {
-                        glassBtn.classList.remove('filled');
-                    }
-                }
-            });
-            
-            // Atualiza UI
-            document.getElementById('waterGoal').textContent = `${filled}/8 copos`;
-            const percentage = (filled / 8) * 100;
-            document.getElementById('waterProgressFill').style.width = `${percentage}%`;
-            
-            // Atualiza mensagem
-            const messageEl = document.getElementById('waterMessage');
-            if (filled === 0) {
-                messageEl.textContent = '💪 Meta: 2 litros (8 copos de 250ml)';
-            } else if (filled < 4) {
-                messageEl.textContent = `💧 Bom começo! Já tomou ${filled * 250}ml`;
-            } else if (filled < 8) {
-                messageEl.textContent = `🔥 Ótimo! Faltam apenas ${(8 - filled) * 250}ml`;
-            } else {
-                messageEl.textContent = '🎉 META ATINGIDA! Parabéns pela hidratação!';
             }
         }
 
