@@ -2754,6 +2754,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="pesoSemanal">⚖️ Peso (kg)</label>
+                            <input type="number" id="pesoSemanal" step="0.1" placeholder="Ex: 81.5" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="gordura">🧍‍♂️ Percentual de Gordura (%)</label>
                             <input type="number" id="gordura" step="0.1" placeholder="Ex: 18.5" required>
                         </div>
@@ -3372,7 +3377,18 @@
 
         function addRecord(record) {
             const records = getRecords();
-            records.push(record);
+            
+            // Verifica se já existe um registro para esta data
+            const existingIndex = records.findIndex(r => r.data === record.data);
+            
+            if (existingIndex !== -1) {
+                // Se já existe, atualiza o registro existente
+                records[existingIndex] = record;
+            } else {
+                // Se não existe, adiciona novo
+                records.push(record);
+            }
+            
             records.sort((a, b) => new Date(a.data) - new Date(b.data));
             saveRecords(records);
             updateJourneyDisplay(); // Atualiza barras de progresso
@@ -3848,14 +3864,11 @@
             document.getElementById('registroForm').addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Pega o peso do checklist diário da mesma data
                 const dateKey = document.getElementById('data').value;
-                const dailyChecklist = loadChecklist(dateKey);
-                const pesoValue = dailyChecklist.weight ? parseFloat(dailyChecklist.weight) : 0;
 
                 const record = {
                     data: dateKey,
-                    peso: pesoValue, // Usa o peso do checklist diário
+                    peso: parseFloat(document.getElementById('pesoSemanal').value),
                     gordura: parseFloat(document.getElementById('gordura').value),
                     cintura: parseFloat(document.getElementById('cintura').value),
                     bracoDireito: parseFloat(document.getElementById('bracoDireito').value),
@@ -4011,8 +4024,7 @@
                         <td>${record.coxa.toFixed(1)}</td>
                         <td>${humorStars}</td>
                         <td>
-                            <button class="edit-btn" onclick="editRecord(${index})">✏️</button>
-                            <button class="delete-btn" onclick="deleteRecord(${index})">🗑️</button>
+                            <button class="edit-btn" onclick="editRecord(${index})">✏️ Editar</button>
                         </td>
                     </tr>
                 `;
