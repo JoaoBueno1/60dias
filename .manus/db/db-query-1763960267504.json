@@ -1,0 +1,52 @@
+{
+  "query": "SELECT a.id as accountId, a.name as accountName, c.id as categoryId, c.name as categoryName, c.type as categoryType \nFROM accounts a \nCROSS JOIN categories c \nWHERE a.userId = 1 AND c.userId = 1\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3e94MxajmJpDPpj.root --database 3Z9qJW8r4BMRmta4EXnoYE --execute SELECT a.id as accountId, a.name as accountName, c.id as categoryId, c.name as categoryName, c.type as categoryType \nFROM accounts a \nCROSS JOIN categories c \nWHERE a.userId = 1 AND c.userId = 1\nLIMIT 10;",
+  "rows": [
+    {
+      "accountId": "2",
+      "accountName": "Savings Account",
+      "categoryId": "1",
+      "categoryName": "Salary",
+      "categoryType": "income"
+    },
+    {
+      "accountId": "1",
+      "accountName": "Main Checking",
+      "categoryId": "1",
+      "categoryName": "Salary",
+      "categoryType": "income"
+    },
+    {
+      "accountId": "2",
+      "accountName": "Savings Account",
+      "categoryId": "2",
+      "categoryName": "Groceries",
+      "categoryType": "expense"
+    },
+    {
+      "accountId": "1",
+      "accountName": "Main Checking",
+      "categoryId": "2",
+      "categoryName": "Groceries",
+      "categoryType": "expense"
+    },
+    {
+      "accountId": "2",
+      "accountName": "Savings Account",
+      "categoryId": "3",
+      "categoryName": "Rent",
+      "categoryType": "expense"
+    },
+    {
+      "accountId": "1",
+      "accountName": "Main Checking",
+      "categoryId": "3",
+      "categoryName": "Rent",
+      "categoryType": "expense"
+    }
+  ],
+  "messages": [],
+  "stdout": "accountId\taccountName\tcategoryId\tcategoryName\tcategoryType\n2\tSavings Account\t1\tSalary\tincome\n1\tMain Checking\t1\tSalary\tincome\n2\tSavings Account\t2\tGroceries\texpense\n1\tMain Checking\t2\tGroceries\texpense\n2\tSavings Account\t3\tRent\texpense\n1\tMain Checking\t3\tRent\texpense\n",
+  "stderr": "",
+  "execution_time_ms": 1617
+}

@@ -1,0 +1,24 @@
+{
+  "query": "SELECT id, userId, name, type, initialBalance FROM accounts;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3e94MxajmJpDPpj.root --database 3Z9qJW8r4BMRmta4EXnoYE --execute SELECT id, userId, name, type, initialBalance FROM accounts;",
+  "rows": [
+    {
+      "id": "1",
+      "userId": "1",
+      "name": "Main Checking",
+      "type": "bank",
+      "initialBalance": "500000"
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "name": "Savings Account",
+      "type": "savings",
+      "initialBalance": "1000000"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tuserId\tname\ttype\tinitialBalance\n1\t1\tMain Checking\tbank\t500000\n2\t1\tSavings Account\tsavings\t1000000\n",
+  "stderr": "",
+  "execution_time_ms": 1595
+}

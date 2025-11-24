@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS accounts (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  userId INT NOT NULL,\n  name TEXT NOT NULL,\n  type ENUM('bank', 'credit_card', 'wallet', 'broker', 'savings') NOT NULL,\n  currencyCode VARCHAR(10) NOT NULL,\n  initialBalance INT NOT NULL DEFAULT 0,\n  isHidden BOOLEAN NOT NULL DEFAULT FALSE,\n  color VARCHAR(20),\n  icon VARCHAR(50),\n  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  FOREIGN KEY (userId) REFERENCES users(id),\n  FOREIGN KEY (currencyCode) REFERENCES currencies(code)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3e94MxajmJpDPpj.root --database 3Z9qJW8r4BMRmta4EXnoYE --execute CREATE TABLE IF NOT EXISTS accounts (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  userId INT NOT NULL,\n  name TEXT NOT NULL,\n  type ENUM('bank', 'credit_card', 'wallet', 'broker', 'savings') NOT NULL,\n  currencyCode VARCHAR(10) NOT NULL,\n  initialBalance INT NOT NULL DEFAULT 0,\n  isHidden BOOLEAN NOT NULL DEFAULT FALSE,\n  color VARCHAR(20),\n  icon VARCHAR(50),\n  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  FOREIGN KEY (userId) REFERENCES users(id),\n  FOREIGN KEY (currencyCode) REFERENCES currencies(code)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1791
+}

@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS currencies (\n  code VARCHAR(10) PRIMARY KEY,\n  name TEXT NOT NULL,\n  symbol VARCHAR(10) NOT NULL,\n  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3e94MxajmJpDPpj.root --database 3Z9qJW8r4BMRmta4EXnoYE --execute CREATE TABLE IF NOT EXISTS currencies (\n  code VARCHAR(10) PRIMARY KEY,\n  name TEXT NOT NULL,\n  symbol VARCHAR(10) NOT NULL,\n  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1601
+}

@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE transactions ADD COLUMN tags JSON DEFAULT NULL;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3e94MxajmJpDPpj.root --database 3Z9qJW8r4BMRmta4EXnoYE --execute ALTER TABLE transactions ADD COLUMN tags JSON DEFAULT NULL;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1919
+}
